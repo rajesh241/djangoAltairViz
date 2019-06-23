@@ -22,4 +22,5 @@ from example import urls as exampleurls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('example/', include(exampleurls)),
+    path('', include(exampleurls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
