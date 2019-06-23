@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load django_altair %}
+
+{% load static %}
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/vega@5.4.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@3.3.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@4.2.0"></script>
+
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="https://s3.ap-south-1.amazonaws.com/nrega-pds-2/static/test/a.css" rel="stylesheet" id="a">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{% endblock %}
+
+{% block content %}
+
+
+<div>
+	{% if chartArray %}
+		{% for eachChart in chartArray %}
+		  {% if eachChart.name %}
+		     <h2>{{ eachChart.name }} </h2>
+	          {% endif %}
+		  {% if eachChart.description %}
+		     <p>{{ eachChart.description }} </p>
+	          {% endif %}
+	        {% render_chart eachChart.chart %}
+	        {% endfor %}
+	  {% endif %}
+</div>
+
+{% endblock %}
