@@ -4,14 +4,15 @@ from altair import datum
 import json
 
 from django.conf import settings
-
+from example.models import Batting
 
 def getBattingChart():
   filename="%s/batting.csv" % (settings.MEDIA_ROOT)
-  source=pd.read_csv(filename)
+  source = pd.DataFrame(list(Batting.objects.all().values("name","country","average","year","strikerate","runs")))
   print(source.head())
+  alt.data_transformers.disable_max_rows()
   slider = alt.binding_range(min=1990, max=2018, step=1)
-  select_year = alt.selection_single(name="year", fields=['year'],
+  select_year = alt.selection_single(name="year", fields=['year'], on='none' ,clear='none',
                                              bind=slider, init={'year': 1998})
   singlePlayer = alt.selection_single(empty='none', fields=['name'] , init={'name':'SR Tendulkar'})
   domain=["INDIA","AUS","PAK","ENG","SA","NZ"]
@@ -28,6 +29,8 @@ def getBattingChart():
     select_year,
     singlePlayer
   ).transform_filter(
+     datum.runs > 450        
+  ).transform_filter(
     select_year
   ).properties(
    title="Batting Records Year Wise"
@@ -41,11 +44,16 @@ def getBattingChart():
 	  )
 
   combinedLine=alt.Chart(source).mark_line(point=True).encode(
-      x='year',
+          x='year:Q',
 )
+
   z=alt.layer(
-    combinedLine.mark_line(color='blue').encode(y='average'),
-    combinedLine.mark_line(color='red').encode(y='strikerate')
+    combinedLine.mark_line(color='blue').encode(
+        y='average',
+        ),
+    combinedLine.mark_line(color='red').encode(
+        y='strikerate'
+        )
 ).transform_filter(
 singlePlayer
 ).properties(
