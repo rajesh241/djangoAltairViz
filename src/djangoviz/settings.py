@@ -25,7 +25,7 @@ SECRET_KEY = '_&m4lap26cpvneo4n3_om9@m@wj=g*d2^bd_azeq8&4x-fhcz_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['djangoviz.libtech.in','django-viz-env.prviakxqcj.us-west-2.elasticbeanstalk.com','b.libtech.in']
+ALLOWED_HOSTS = ['127.0.0.1','djangoviz.libtech.in','django-viz-env.prviakxqcj.us-west-2.elasticbeanstalk.com','b.libtech.in']
 
 
 # Application definition
