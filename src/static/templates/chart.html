@@ -28,6 +28,12 @@
 		     <p>{{ eachChart.description }} </p>
 	          {% endif %}
 	        {% render_chart eachChart.chart %}
+		  {% if eachChart.postscript %}
+		      {% autoescape off %}
+		     <p>{{ eachChart.postscript }} </p>
+		      {% endautoescape %}
+
+	          {% endif %}
 	        {% endfor %}
 	  {% endif %}
 </div>

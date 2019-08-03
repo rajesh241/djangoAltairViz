@@ -15,8 +15,8 @@ def getBattingChart():
   select_year = alt.selection_single(name="year", fields=['year'], on='none' ,clear='none',
                                              bind=slider, init={'year': 1998})
   singlePlayer = alt.selection_single(empty='none', fields=['name'] , init={'name':'SR Tendulkar'})
-  domain=["INDIA","AUS","PAK","ENG","SA","NZ"]
-  range_=["#6baed6","yellow","green","red","orange","black"]
+  domain=["INDIA","AUS","PAK","ENG","SA","NZ","WI","BAN","SL"]
+  range_=["#6baed6","yellow","green","red","orange","black","brown","purple","pink"]
   base=alt.Chart(source).mark_circle().encode(
 #      x=alt.X('average',scale=alt.Scale(domain=[0, 200])),
 #      y=alt.Y('strikerate',scale=alt.Scale(domain=[0, 200])),
@@ -43,15 +43,17 @@ def getBattingChart():
           singlePlayer
 	  )
 
+  label1 = alt.Chart(source).mark_text(align='left', dy=-140,size=15, opacity=0.5,text=' --- average', color='blue')
+  label2 = alt.Chart(source).mark_text(dy=-140, size=15, align='right',opacity=0.5,text=' --- strikerate  ', color='red')
   combinedLine=alt.Chart(source).mark_line(point=True).encode(
           x='year:Q',
 )
 
   z=alt.layer(
-    combinedLine.mark_line(color='blue').encode(
+    combinedLine.mark_line(color='blue',opacity=.5).encode(
         y='average',
         ),
-    combinedLine.mark_line(color='red').encode(
+    combinedLine.mark_line(color='red',opacity=.5).encode(
         y='strikerate'
         )
 ).transform_filter(
@@ -59,10 +61,10 @@ singlePlayer
 ).properties(
   title='Selected Player Recored over Years'
  )
-  myChart=base  | z + titleLine
+  myChart=base  | z + titleLine + label1 + label2
   myChart1=myChart.configure_circle(
    filled=True,
-   size=100,
+   size=200,
 ).properties(
 autosize='fit'
 )

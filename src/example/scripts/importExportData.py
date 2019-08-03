@@ -42,7 +42,29 @@ def main():
   logger = loggerFetch(args.get('log_level'))
   logger.info("Begin Processing")
   if args['filter']:
-    
+    years=[2015,2016,2017,2018]
+    for year in years:
+      objs=Export.objects.filter(year=year,isOtherItem=False).values("commodity").annotate(vsum=Sum('value')).order_by("-vsum")
+      i=0
+      for obj in objs:
+        i=i+1
+        if i <= 15:
+          commodity=obj['commodity']
+          logger.info(commodity)
+          myobjs=Export.objects.filter(year=year,commodity=commodity)
+          for eachObj in myobjs:
+            eachObj.isTopItem=True
+            eachObj.save()
+    exit(0)
+    objs=Export.objects.all().order_by("-id")
+    for obj in objs:
+      finyear=obj.finyear
+      year=finyear[-4:]
+      obj.year=year
+      obj.save()
+      logger.info(obj.id)
+      logger.info(f"{finyear}-{year}")
+    exit(0)
     objs=Export.objects.filter(isOtherItem=False).values("country","finyear").annotate(vsum=Sum('value')).order_by("-vsum")
     for obj in objs:
       totalValue=obj['vsum']
