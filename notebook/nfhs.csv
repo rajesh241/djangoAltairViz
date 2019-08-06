@@ -1,0 +1,16 @@
+year,state,literacy,marriedBefore18,fertilityRate,teenPregnancy
+2005,Bihar,37,69,4,25
+2015,Bihar,49.6,42.5,3.4,12.2
+2005,Assam,63,38.6,2.4,16.4
+2015,Assam,71.8,30.8,2.2,13.6
+2005,Haryana,60.4,41.2,2.7,12.1
+2015,Haryana,75.4,19.4,2.1,5.8
+2005,Madhya Pradesh,44.4,57.3,3.2,13.6
+2015,Madhya Pradesh,59.4,32.4,2.3,7.3
+2005,Rajasthan,36.2,65.2,3.2,16
+2015,Rajasthan,56.5,35.4,2.4,6.3
+2005,Andhra Pradesh,62.9,33,1.8,11.8
+2005,Kerala,93,15.4,1.9,5.8
+2015,Kerala,97.9,7.6,1.6,3
+2005,Uttar Pradesh,44.9,58.6,3.8,14.3
+2015,Uttar Pradesh,61,21.1,2.7,3.8
