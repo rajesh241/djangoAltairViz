@@ -37,10 +37,15 @@ python manage.py runserver
 ```
 
 This should run the server, and now you can open the browser and open the url, http://127.0.0.1:8000/.
+
 There are three examples on display which can be viewed
+
 National Family Health Survey Data: http://127.0.0.1:8000/nfhs/
+
 India Export Data Analysis: http://127.0.0.1:8000/export/
+
 Cricket Data: http://127.0.0.1:8000/
+
 
 ## Deployment
 
