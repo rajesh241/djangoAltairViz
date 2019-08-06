@@ -3,9 +3,45 @@ from django.http import HttpResponse,JsonResponse
 from django.views.generic import TemplateView
 from django.views.generic import View
 from django.db.models import F,Q,Sum,Count
+import pandas as pd
+import altair as alt
+from .models import NFHS
 from .cricket import getBattingChart
 from .export import getExportChart
 # Create your views here.
+
+class NFHSView(TemplateView):
+  template_name="chart.html"
+  def get(self, request, *args, **kwargs):
+    context = locals()
+    chartArray=[]
+    source = pd.DataFrame(list(NFHS.objects.all().values('state','year','fertilityRate','teenPregnancy','literacy','marriedBefore18')))
+    brush=alt.selection_interval()
+    base=alt.Chart(source).mark_circle().encode(
+    x='literacy',
+    y='teenPregnancy',
+    color='state',
+    size='fertilityRate'
+    ).add_selection(
+    brush
+    )
+    selected=alt.Chart(source).mark_bar().encode(
+      y='year:O',
+      x='mean(marriedBefore18)'
+    ).transform_filter(
+     brush
+    )
+    myChart=base & selected 
+    p={}
+    p['name']="NFHS"
+    p['chart']=myChart
+    p['description']="NFHS Data"
+    p['postscript']=""
+    chartArray.append(p)
+    context['chartArray']=chartArray
+    return render(request, self.template_name, context)
+
+
 class cricket(TemplateView):
   template_name="chart.html"
 

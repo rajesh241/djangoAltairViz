@@ -11,6 +11,16 @@ class Batting(models.Model):
   def __str__(self):
     return "%s-%s-%s" % (self.name,self.country,str(self.value))
 
+class NFHS(models.Model):
+  state=models.CharField(max_length=2048,blank=True,null=True)
+  year=models.IntegerField()
+  fertilityRate=models.IntegerField()
+  literacy=models.IntegerField()
+  marriedBefore18=models.IntegerField()
+  teenPregnancy=models.IntegerField()
+  def __str__(self):
+    return "%s-%s" % (self.state,str(self.year))
+  
 class Export(models.Model):
   country=models.CharField(max_length=1024)
   commodity=models.CharField(max_length=1024)
